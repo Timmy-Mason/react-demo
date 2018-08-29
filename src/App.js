@@ -1,31 +1,29 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom'
+import {Link,Route,BrowserRouter as Router} from 'react-router-dom'
+import Newsdetail from './component/nwesDetail/index';
+import Newslist from './component/newList/index';
+import NewPage from './component/newPage/index';
+import './App.css';
 class App extends Component {
     constructor(props) {
         super(props);
-        // 第一种方式：this.props.history.push
-        // this.handleClick = this.handleClick.bind(this);
-        // this.handleClick1 = this.handleClick1.bind(this);
     }
-    // 第一种方式：this.props.history.push
-    // handleClick(){
-    //     this.props.history.push("/newsdetail")
-    // }
-    // handleClick1(){
-    //     this.props.history.push("/newslist")
-    // }
-
     render() {
         return (
-            <div className="App">
-                {/*第一种方式：this.props.history.push*/}
-                {/*<button onClick={this.handleClick}>点击到newsDetail</button>*/}
-                {/*<button onClick={this.handleClick1}>点击到newslist</button>*/}
-
-                {/*第二种方式:相当于a跳转*/}
-                <Link to='/newsdetail'>点击到newsDetail</Link> <br/>
-                <Link to='/newslist'>点击到newslist</Link> <br/>
-                <Link to='/newPage/传递过去的参数'>点击到newslist</Link>
+            <div>
+                <Router>
+                    <div>
+                        <ul>
+                            <li><Link to="/">详情</Link></li>
+                            <li><Link to="/Newslist">列表</Link></li>
+                            <li><Link to="/NewPage:canshu和parmas">页面</Link></li>
+                        </ul>
+                        <hr/>
+                        <Route exact path="/" component={Newsdetail}></Route>
+                        <Route path="/Newslist" component={Newslist} ></Route>
+                        <Route path="/NewPage:id" component={NewPage}></Route>
+                    </div>
+                </Router>
             </div>
         );
     }

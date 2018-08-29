@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "element-react": "^1.4.21",
+    "element-theme-default": "^1.4.13",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5"
   },
@@ -14,5 +15,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "antd": "^3.8.4"
   }
 }

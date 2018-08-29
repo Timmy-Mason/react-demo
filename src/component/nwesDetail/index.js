@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../../assets/css/nav.css'
-
 class Nav extends Component {
     constructor(props) {
         super(props);
@@ -10,7 +9,7 @@ class Nav extends Component {
     };
     render() {
         return (
-            <div className="Nav">详情</div>
+           <div>详情页面</div>
         );
     }
 }

@@ -19,3 +19,6 @@
 .Nav li.active{
     background-color: red;
 }
+.Nav .List{
+    color:red;
+}
