@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import DetailModal from './detailModal'
 import Button from 'antd/lib/button';
 import axios from 'axios';
-import publicData from '../../util'
-import '../../assets/css/game.css'
+import publicData from '../../util';
+import '../../assets/css/game.css';
 // antDesign
-import {Table, Divider, Tag, Pagination,Modal } from 'antd';
+import {Table, Divider, Tag, Pagination,Modal,Icon,Input} from 'antd';
 
 // 定义表格形式
 class Nav extends Component {
@@ -15,12 +16,13 @@ class Nav extends Component {
             searchStr: '789',
             dataSource:[],
             // modal
-            ModalText: 'Content of the modal',
             visible: false,
-            confirmLoading: false
+            confirmLoading: false,
+            //input框内容
+            inputContent:""
         };
     };
-    // this.setState({ModalText:"这是最新的内容"});
+    // this.setState({ModalText:"这是最新的内容"}); 直接这样设置会报错，应该是在函数里边进行设置
 
     // 组件内的方法或者是变量都要使用this指针去访问
     columns = [
@@ -63,7 +65,7 @@ class Nav extends Component {
                 <span>
                     <span>{index}</span>
                     <Divider type="vertical" />
-                    <Button type="primary" onClick={this.DetailFunc.bind(this,record,index)}>详情</Button>　
+                    <Button type="primary" onClick={this.showModal.bind(this,record,index)}>详情</Button>　
                     <Divider type="vertical" />
                     <Button type="primary" onClick={this.DeleteFunc.bind(this,record,index)}>删除</Button>　
                 </span>
@@ -71,28 +73,29 @@ class Nav extends Component {
         }];
     // modal
     // 将弹窗打开
-    showModal = () => {
+    showModal = (record,index) => {
+        // 弹窗显示
         this.setState({
             visible: true,
+            inputContent: record.name
         });
+
     };
     // 确定保存弹窗内容
     handleOk = () => {
+        let arr = [];
+        this.state.dataSource[3].order = 1;
+        arr.push(this.state.dataSource[3]);
         this.setState({
-            ModalText: 'The modal will be closed after two seconds',
             confirmLoading: true,
+            dataSource:arr,
+            visible: false
         });
-        setTimeout(() => {
-            this.setState({
-                visible: false,
-                confirmLoading: false,
-            });
-        }, 2000);
     };
     // 取消关闭弹窗
     handleCancel = () => {
-        console.log('Clicked cancel button');
         this.setState({
+            // 弹窗隐藏
             visible: false,
         });
     };
@@ -140,20 +143,16 @@ class Nav extends Component {
             <div className="game">
                 {/*modal按钮*/}
                 <div className="nav-modal">
-                    <Button type="primary" onClick={this.showModal}>异步操作弹窗</Button>
-                    <Modal title="Title"
-                           visible={this.state.visible}
-                           onOk={this.handleOk}
-                           confirmLoading={this.state.confirmLoading}
-                           onCancel={this.handleCancel}
-                    >
-                        <p>{this.state.ModalText}</p>
-                    </Modal>
+                    <Button type="primary" onClick={this.showModal}>异步操作弹窗111</Button>
                 </div>
-
+                {/*modal弹窗*/}
+                <Modal title="弹窗标题" visible={this.state.visible} onOk={this.handleOk} onCancel={this.handleCancel} cancelText="取消" okText="确定">
+                    请输入内容: <br/>
+                    {/*直接给Input一个value属性，会报一个错误的警告*/}
+                    <Input placeholder="请输入内容" defaultValue={this.state.inputContent} />
+                </Modal>
                 {/*更新数据按钮*/}
                 <Button onClick={()=>{this.btnClick()}} type="primary">{this.state.searchStr}</Button>
-
                 <Table columns={this.columns} dataSource={this.state.dataSource}/>
             </div>
         );

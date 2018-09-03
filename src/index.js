@@ -9,7 +9,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
     <div className="public">
-        <h1>公共部分</h1>
+        <h1>React</h1>
         <BrowserRouter>
             <Switch>
                 {/* 一、第一次解析到App这个组件，将之前引入的组件App加载进来，
