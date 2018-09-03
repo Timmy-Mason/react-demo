@@ -3,18 +3,11 @@
 .App {
   text-align: center;
 }
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
 .App-header {
   background-color: #222;
   height: 150px;
   padding: 20px;
   color: white;
-}
-.App-title {
-  font-size: 1.5em;
 }
 .App-intro {
   font-size: large;
@@ -31,3 +24,53 @@
   text-align: center;
   color: #ffffff;
 }
+
+/*侧边导航栏*/
+.side-bar-content{
+  width:100%;
+  position: relative;
+}
+.side-bar-content ul.side-bar{
+  padding-left: 0;
+  margin-bottom: 0;
+  position: absolute;
+  width:100px;
+  height:895px;
+  left:0;
+  background-color: #e7e7e7;
+}
+.side-bar-content ul.side-bar li{
+  list-style: none;
+  width:100%;
+  height:30px;
+  line-height: 30px;
+  left:0;
+  font-size: 17px;
+  text-align: center;
+}
+.side-bar-content div.content{
+  position: absolute;
+  left:110px;
+  top:10px;
+  width:90%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

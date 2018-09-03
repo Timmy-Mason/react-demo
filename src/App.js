@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {Link,Route,BrowserRouter as Router} from 'react-router-dom'
-import Newsdetail from './component/nwesDetail/index';
-import Newslist from './component/newList/index';
-import NewPage from './component/newPage/index';
+import Game from './component/game/index';
+import Label from './component/label/index';
+import Page from './component/homePage/index';
 import './App.css';
 class App extends Component {
     constructor(props) {
@@ -10,18 +10,19 @@ class App extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="side-bar">
                 <Router>
-                    <div>
-                        <ul>
-                            <li><Link to="/">详情</Link></li>
-                            <li><Link to="/Newslist">列表</Link></li>
-                            <li><Link to="/NewPage:canshu和parmas">页面</Link></li>
+                    <div className="side-bar-content">
+                        <ul className="side-bar">
+                            <li><Link to="/">游戏</Link></li>
+                            <li><Link to="/label">标签</Link></li>
+                            <li><Link to="/page:canshu和parmas">首页</Link></li>
                         </ul>
-                        <hr/>
-                        <Route exact path="/" component={Newsdetail}></Route>
-                        <Route path="/Newslist" component={Newslist} ></Route>
-                        <Route path="/NewPage:id" component={NewPage}></Route>
+                        <div className="content">
+                            <Route exact path="/" component={Game}></Route>
+                            <Route path="/label" component={Label} ></Route>
+                            <Route path="/page:id" component={Page}></Route>
+                        </div>
                     </div>
                 </Router>
             </div>

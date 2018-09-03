@@ -1,0 +1,39 @@
+/*导航栏*/
+.Nav{
+    height:50px;
+    line-height: 50px;
+    position: relative;
+}
+.Nav ul{
+    margin:0;
+    padding:0;
+}
+.Nav li{
+    color:#fff;
+    cursor: pointer;
+    list-style: none;
+}
+.Nav li.active{
+    background-color: red;
+}
+.Nav .List{
+    color:red;
+}
+/*table自带表格的分页*/
+/*.ant-spin-nested-loading .ant-pagination.ant-table-pagination{*/
+    /*display: none;*/
+/*}*/
+#detail .pagination{
+    position: relative;
+    width:100%;
+    height:50px;
+}
+#detail .pagination .ant-pagination {
+    position: absolute;
+    right:0;
+    top:10px;
+}
+
+
+
+
