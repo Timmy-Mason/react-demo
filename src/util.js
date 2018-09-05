@@ -1,4 +1,4 @@
 let publicData = {
-    token:"5b8d288b059af200441e8d47"
+    token:"5b8fad8a059af20043597d38"
 };
 export default publicData;

@@ -10,20 +10,13 @@ import {Table, Divider, Tag, Pagination,Modal,Icon,Input} from 'antd';
 // 定义表格形式
 class Nav extends Component {
     constructor(props) {
-        super(props);
-        // 点击某一行的事件
+        super(props);    // 点击某一行的事件
         this.state = {
-            searchStr: '789',
             dataSource:[],
             // modal
-            visible: false,
-            confirmLoading: false,
-            //input框内容
-            inputContent:""
-        };
+            modalVisible: {}
     };
-    // this.setState({ModalText:"这是最新的内容"}); 直接这样设置会报错，应该是在函数里边进行设置
-
+    };
     // 组件内的方法或者是变量都要使用this指针去访问
     columns = [
         {
@@ -56,7 +49,14 @@ class Nav extends Component {
         },{
             title: '上线时间',
             dataIndex: 'online_time',
-            key: 'online_time'
+            key: 'online_time',
+            render: (text, item) => {
+                return (
+                    <div>
+                        <Button type="primary" onClick={this.showChildModal.bind(this,item)}>编辑</Button>
+                    </div>
+                );
+            },
         }, {
             title: '操作',
             key: 'operation',
@@ -64,66 +64,24 @@ class Nav extends Component {
                 // 这里不能同时有多个最顶层标签
                 <span>
                     <span>{index}</span>
-                    <Divider type="vertical" />
-                    <Button type="primary" onClick={this.showModal.bind(this,record,index)}>详情</Button>　
-                    <Divider type="vertical" />
+                    <Divider type="vertical"/>
                     <Button type="primary" onClick={this.DeleteFunc.bind(this,record,index)}>删除</Button>　
                 </span>
             )
         }];
-    // modal
-    // 将弹窗打开
-    showModal = (record,index) => {
-        // 弹窗显示
-        this.setState({
-            visible: true,
-            inputContent: record.name
-        });
-
-    };
-    // 确定保存弹窗内容
-    handleOk = () => {
-        let arr = [];
-        this.state.dataSource[3].order = 1;
-        arr.push(this.state.dataSource[3]);
-        this.setState({
-            confirmLoading: true,
-            dataSource:arr,
-            visible: false
-        });
-    };
-    // 取消关闭弹窗
-    handleCancel = () => {
-        this.setState({
-            // 弹窗隐藏
-            visible: false,
-        });
-    };
-    // 主界面按钮
-    btnClick(){
-        console.log(this.state.searchStr);
-        console.log(this.state.dataSource);
-    }
-    // 某一列详情
-    DetailFunc(record,index){
-        console.log(index);
-        console.log(record);
-    }
     // 删除某一列
     DeleteFunc(record,index){
         console.log(index);
         console.log(record);
+        console.log("删除成功");
     }
     //当组件输出到 DOM 后会执行 componentDidMount()
     componentDidMount(){
         let _this = this;
         // _this.state.searchStr = "更新后的数据";// 在componentDidMount生命周期函数里边直接setState是没有效果的
-        _this.setState({'searchStr':'点击事件更新后的数据'});// 正解
         axios.defaults.headers.get['Access-Control-Expose-Headers'] = 'Token';
         axios.defaults.headers.get['Token'] = publicData.token;
         let apkListUrl = "https://dev.zhi-qu.ghzs.com/v1d0/games";
-        // 游戏数量
-
         // 游戏列表
         axios.get(apkListUrl).then(function (res) {
             // componentsDidMount只会在组件加载完后执行一次，之后更新state、props都不会执行，除非重新加载组件。
@@ -138,22 +96,39 @@ class Nav extends Component {
             _this.setState({'dataSource':res.data});
         });
     }
+    // 点击打开弹窗
+    showChildModal = (item) =>{
+        // 一、setState异步，没有效果
+        // this.setState({
+        //     modalVisible:true,
+        //     'searchStr':'点击事件更新后的数据123'
+        // });
+
+        // 三、要想能够立即获取this.state.x的值可以采用以下几种方式：(因为this.setState是异步的，为了提高性能)
+        // 1. setTimeout(() => { console.log(this.state.x);}, 0);
+        // 2. this.setState({}, () => { console.log(this.state.x)};
+        // setTimeout(() => {
+        //     console.log(this.state.searchStr);
+        //     console.log(this.state.modalVisible);
+        // },0);
+
+        // 二、点击对应弹窗出现
+        this.setState({
+            modalVisible: {params:item}
+        }, () => {
+            this.setState({
+                modalVisible: {params:item}
+            });
+        });
+    };
     render() {
         return (
             <div className="game">
-                {/*modal按钮*/}
-                <div className="nav-modal">
-                    <Button type="primary" onClick={this.showModal}>异步操作弹窗111</Button>
-                </div>
-                {/*modal弹窗*/}
-                <Modal title="弹窗标题" visible={this.state.visible} onOk={this.handleOk} onCancel={this.handleCancel} cancelText="取消" okText="确定">
-                    请输入内容: <br/>
-                    {/*直接给Input一个value属性，会报一个错误的警告*/}
-                    <Input placeholder="请输入内容" defaultValue={this.state.inputContent} />
-                </Modal>
                 {/*更新数据按钮*/}
-                <Button onClick={()=>{this.btnClick()}} type="primary">{this.state.searchStr}</Button>
+                <Button type="primary">添加</Button>
                 <Table columns={this.columns} dataSource={this.state.dataSource}/>
+                {/* 在 React 中，父组件可以向子组件通过传 props 的方式，向子组件进行通讯。*/}
+                <DetailModal msg={this.state.modalVisible} />
             </div>
         );
     }
