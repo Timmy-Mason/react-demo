@@ -1,58 +1,68 @@
 /*顶部通栏*/
 @import '../node_modules/antd/dist/antd.css';
+
 .App {
-  text-align: center;
+    text-align: center;
 }
+
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+    background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white;
 }
+
 .App-intro {
-  font-size: large;
+    font-size: large;
 }
+
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
-.public h1{
-  width:100%;
-  height:50px;
-  line-height: 50px;
-  background-color: red;
-  text-align: center;
-  color: #ffffff;
+
+.public h1 {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background-color: red;
+    text-align: center;
+    color: #ffffff;
 }
 
 /*侧边导航栏*/
-.side-bar-content{
-  width:100%;
-  position: relative;
+.side-bar-content ul.side-bar {
+    padding-left: 0;
+    margin-bottom: 0;
+    position: absolute;
+    width: 200px;
+    left: 0;
+    background-color: #F8F8F8;
+    margin-top: -5px;
 }
-.side-bar-content ul.side-bar{
-  padding-left: 0;
-  margin-bottom: 0;
-  position: absolute;
-  width:100px;
-  height:895px;
-  left:0;
-  background-color: #e7e7e7;
+
+.side-bar-content ul.side-bar li {
+    list-style: none;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    left: 0;
+    font-size: 17px;
+    text-align: center;
 }
-.side-bar-content ul.side-bar li{
-  list-style: none;
-  width:100%;
-  height:30px;
-  line-height: 30px;
-  left:0;
-  font-size: 17px;
-  text-align: center;
+/*主体内容区域*/
+
+.side-bar-content {
+    width: 100%;
+    position: relative;
 }
-.side-bar-content div.content{
-  position: absolute;
-  left:110px;
-  top:10px;
-  width:90%;
+
+.side-bar-content div.content {
+    margin: 5px 10px 0 210px;
 }
 
 

@@ -82,6 +82,10 @@ class Nav extends Component {
     }
     //当组件输出到 DOM 后会执行 componentDidMount()
     componentDidMount(){
+        // 数据为空（可能是没有获取到值）
+        // console.log(document.getElementById("side-bar").style.offsetHeight ); //undefined
+        // console.log(document.getElementsByClassName("content")[0].style.offsetHeight); // undefined
+
         let _this = this;
         axios.defaults.headers.get['Access-Control-Expose-Headers'] = 'Token';
         axios.defaults.headers.get['Token'] = publicData.token;
@@ -128,7 +132,9 @@ class Nav extends Component {
         return (
             <div className="game">
                 {/*更新数据按钮*/}
-                <Button type="primary">添加</Button>
+                <div>
+                    <Button type="primary">添加</Button>
+                </div>
                 <Table columns={this.columns} dataSource={this.state.dataSource}/>
                 {/* 在 React 中，父组件可以向子组件通过传 props 的方式，向子组件进行通讯。*/}
                 <DetailModal msgElement={this.state.modalVisible} />

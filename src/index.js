@@ -5,11 +5,14 @@ import { BrowserRouter ,Route ,Switch } from 'react-router-dom';
 import App from './App'
 import './index.css'
 import registerServiceWorker from './registerServiceWorker';
-
-
+const projectNav = {
+    backgroundColor:"#F8F8F8",
+    color:"#778BBA",
+    borderBottom:"1px solid #e7e7e7"
+};
 ReactDOM.render(
     <div className="public">
-        <h1>React</h1>
+        <h1 style={projectNav}>React</h1>
         <BrowserRouter>
             <Switch>
                 {/* 一、第一次解析到App这个组件，将之前引入的组件App加载进来，

@@ -28,7 +28,6 @@ class detailModal extends Component {
     };
     // 有且只执行一次
     componentDidMount(){
-        console.log(0);
         // 监听 msg 事件
         eventProxy.on('msgData', (item) => {
             this.setState({
@@ -41,12 +40,10 @@ class detailModal extends Component {
     };
     // 可以执行多次
     componentWillReceiveProps(){
-        console.log("componentWillReceiveProps加载");
         // 二、点击对应弹窗出现，使用setState和props配合将数据传递进来
         // (但是只有通过两次才能把数据传递进来)
         if(this.props.msgElement.params){
             let params = this.props.msgElement.params;
-            console.log("params: " + params);
             // console.log(params); 执行两次 ?
             // this.setState({
             //     visible: true,
