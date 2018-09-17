@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
-class Child_1 extends Component{
-    componentDidMount() {
-        // 父组件传递的，是作用域为父组件自身的函数，子组件调用该函数，将子组件想要传递的信息，作为参数，传递到父组件的作用域中。
-        setTimeout(() => {
-            this.props.transferMsg('我是从子组件里边传过来的参数')
-        }, 1000);
-    }
+import { Button } from 'antd';
 
+// 第二个按钮style
+const secondButton = {
+    marginTop:10,
+    color:"red"
+};
+
+class Child_1 extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            msg:this.props.msg + " " + "props"
+        }
+    }
+    changeMsg(){
+        // 从子组件传递值到主组件,调用的是主组件里边的方法
+        this.props.transferMsg("点击Button之后将子组件的值传递给主组件");
+    };
     render() {
         return <div>
-            <p>child_1 component</p>
+            <h2>child_1 component</h2>
+            <h2 style={secondButton}>child_1 component</h2>
+            <Button onClick={this.changeMsg.bind(this)} type="primary">{this.state.msg}</Button><br/>
         </div>
     }
 }

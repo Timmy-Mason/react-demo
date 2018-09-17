@@ -1,11 +1,17 @@
+// 每个组件都要引入的
 import React, { Component } from 'react';
+// 详情组件（具有修改功能的弹窗）
 import DetailModal from './detailModal'
-import Button from 'antd/lib/button';
+// 请求方式
 import axios from 'axios';
+// 公共部分（包括公共使用的token）
 import publicData from '../../util';
+// 观察者模式:类似vue里边的$emit和$on事件触发机制
+import eventProxy from '../../eventProxy'
+// css样式
 import '../../assets/css/game.css';
 // antDesign
-import {Table, Divider, Tag, Pagination,Modal,Icon,Input} from 'antd';
+import {Table, Divider, Button} from 'antd';
 
 // 定义表格形式
 class Nav extends Component {
@@ -72,13 +78,11 @@ class Nav extends Component {
     // 删除某一列
     DeleteFunc(record,index){
         console.log(index);
-        console.log(record);
-        console.log("删除成功");
+        console.log(record); // 当前列的数据
     }
     //当组件输出到 DOM 后会执行 componentDidMount()
     componentDidMount(){
         let _this = this;
-        // _this.state.searchStr = "更新后的数据";// 在componentDidMount生命周期函数里边直接setState是没有效果的
         axios.defaults.headers.get['Access-Control-Expose-Headers'] = 'Token';
         axios.defaults.headers.get['Token'] = publicData.token;
         let apkListUrl = "https://dev.zhi-qu.ghzs.com/v1d0/games";
@@ -114,12 +118,11 @@ class Nav extends Component {
 
         // 二、点击对应弹窗出现
         this.setState({
-            modalVisible: {params:item}
-        }, () => {
-            this.setState({
-                modalVisible: {params:item}
-            });
+            modalVisible: {params:"通过props传递数据"}
         });
+
+        // 四、使用js的观察者模式 ()，将弹窗打开并且传递对应的数据
+        eventProxy.trigger('msgData', item);
     };
     render() {
         return (
@@ -128,7 +131,7 @@ class Nav extends Component {
                 <Button type="primary">添加</Button>
                 <Table columns={this.columns} dataSource={this.state.dataSource}/>
                 {/* 在 React 中，父组件可以向子组件通过传 props 的方式，向子组件进行通讯。*/}
-                <DetailModal msg={this.state.modalVisible} />
+                <DetailModal msgElement={this.state.modalVisible} />
             </div>
         );
     }

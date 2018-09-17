@@ -16,6 +16,7 @@ class App extends Component {
                         <ul className="side-bar">
                             <li><Link to="/">游戏</Link></li>
                             <li><Link to="/label">标签</Link></li>
+                            {/*通过路由切换传递参数*/}
                             <li><Link to="/page:canshu和parmas">首页</Link></li>
                         </ul>
                         <div className="content">

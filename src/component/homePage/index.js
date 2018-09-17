@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
+import Child_1 from './Child_1';
+import Child_2 from './Child_2';
+// 观察者模式:类似vue里边的$emit和$on事件触发机制
 class NewPage extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            data: this.props.List
-        };
-    }
     render() {
         return (
             <div>
                 {/*注意参数的名称*/}
-                newPage:这是参数:{this.props.match.params.id}
+                <div><h2>parent组件</h2>:这是参数: <br/>{this.props.match.params.id}</div><br/><br/>
+                <div>
+                    <Child_1></Child_1> <br/><br/>
+                    <Child_2></Child_2>
+                </div>
             </div>
         );
     }
