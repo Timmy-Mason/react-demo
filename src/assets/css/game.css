@@ -18,3 +18,18 @@
     position: absolute;
     right:0;
 }
+.game .ant-row .ant-col-6{
+    height:50px;
+    line-height: 50px;
+}
+.game .ant-row .ant-col-6 button{
+    width:100%;
+}
+.ant-table-pagination.ant-pagination{
+    display: none;
+}
+.game .ant-pagination {
+    position: absolute;
+    right:0;
+    margin-top: 10px;
+}

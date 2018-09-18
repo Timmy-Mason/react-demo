@@ -11,16 +11,21 @@ import eventProxy from '../../eventProxy'
 // css样式
 import '../../assets/css/game.css';
 // antDesign
-import {Table, Divider, Button} from 'antd';
+import {Table, Divider, Button,Row,Col,Pagination,LocaleProvider} from 'antd';
+// 中文包，在下边使用
+import zhCN from 'antd/lib/locale-provider/zh_CN';
 
 // 定义表格形式
 class Nav extends Component {
     constructor(props) {
-        super(props);    // 点击某一行的事件
+        super(props);
         this.state = {
             dataSource:[],
             // modal
-            modalVisible: {}
+            modalVisible: {},
+            gameAmount:0,
+            current:1,
+            pageSize:10
     };
     };
     // 组件内的方法或者是变量都要使用this指针去访问
@@ -80,29 +85,15 @@ class Nav extends Component {
         console.log(index);
         console.log(record); // 当前列的数据
     }
+    // componentWillMount不能获取到dom元素
+    componentWillMount(){
+        // console.log(document.getElementById("side-bar")); // null
+    }
     //当组件输出到 DOM 后会执行 componentDidMount()
+    //componentDidMount能够获取到dom元素
     componentDidMount(){
-        // 数据为空（可能是没有获取到值）
-        // console.log(document.getElementById("side-bar").style.offsetHeight ); //undefined
-        // console.log(document.getElementsByClassName("content")[0].style.offsetHeight); // undefined
-
-        let _this = this;
-        axios.defaults.headers.get['Access-Control-Expose-Headers'] = 'Token';
-        axios.defaults.headers.get['Token'] = publicData.token;
-        let apkListUrl = "https://dev.zhi-qu.ghzs.com/v1d0/games";
-        // 游戏列表
-        axios.get(apkListUrl).then(function (res) {
-            // componentsDidMount只会在组件加载完后执行一次，之后更新state、props都不会执行，除非重新加载组件。
-            // componentWillReceiveProps在组件传进来的props被更改时，将被调用。
-            // 所以可以在componentWillReceiveProps函数里改变state来重新获取数据
-            // _this.state.dataSource = res.data;
-            for (let i = 0; i < res.data.length; i++) {
-                // 添加序号
-                res.data[i].order = i + 1; // 序号
-                res.data[i].key = i + 1; // 每一条数据都必须具有特殊的key，否则会报错
-            }
-            _this.setState({'dataSource':res.data});
-        });
+       this.getGamesAmount();
+       this.getGamesList(1,10);
     }
     // 点击打开弹窗
     showChildModal = (item) =>{
@@ -128,14 +119,80 @@ class Nav extends Component {
         // 四、使用js的观察者模式 ()，将弹窗打开并且传递对应的数据
         eventProxy.trigger('msgData', item);
     };
+    // 游戏数目
+    getGamesAmount = () => {
+        let _this = this;
+        axios.defaults.headers.get['Access-Control-Expose-Headers'] = 'Token';
+        axios.defaults.headers.get['Token'] = publicData.token;
+        let gamesAmountUrl = "https://dev.zhi-qu.ghzs.com/v1d0/games:count";
+        // 游戏数量
+        axios.get(gamesAmountUrl).then(function (res) {
+            _this.setState({'gameAmount':res.data});
+        });
+    };
+    // 游戏列表
+    getGamesList = (current,pageSize) => {
+        let _this = this;
+        axios.defaults.headers.get['Access-Control-Expose-Headers'] = 'Token';
+        axios.defaults.headers.get['Token'] = publicData.token;
+        let gamesListUrl = "https://dev.zhi-qu.ghzs.com/v1d0/games?page="+ current +"&page_size=" + pageSize;
+        // 游戏列表
+        axios.get(gamesListUrl).then(function (res) {
+            // componentsDidMount只会在组件加载完后执行一次，之后更新state、props都不会执行，除非重新加载组件。
+            // componentWillReceiveProps在组件传进来的props被更改时，将被调用。
+            // 所以可以在componentWillReceiveProps函数里改变state来重新获取数据
+            // _this.state.dataSource = res.data;
+            for (let i = 0; i < res.data.length; i++) {
+                // 添加序号
+                res.data[i].order = i + 1; // 序号
+                res.data[i].key = i + 1; // 每一条数据都必须具有特殊的key，否则会报错
+            }
+            _this.setState({'dataSource':res.data});// 数据是20条，为什么结果出不来
+            // dataSource没有初始化，获取的高度是没有填充数据的，不准确
+            console.log(document.getElementById("container").height); // undefined
+            console.log(document.getElementById("container").offsetHeight); // 980
+            document.getElementsByClassName("side-bar")[0].style.height = document.getElementById("container").offsetHeight + 100 + 'px';
+        });
+    };
+    getPages = (current,pageSize) =>{
+        console.log(current);
+        console.log(pageSize);
+        this.setState({
+           "current": current,
+           "pageSize": pageSize
+        });
+        this.getGamesList(current,pageSize);
+    };
+    getPagesSize = (current,pageSize) =>{
+        // 遗留问题：pageSize拿到的不正确，即使传一个固定的值，也回出现问题。
+        this.setState({
+            "current": current,
+            "pageSize": pageSize
+        });
+        console.log(current);
+        console.log(pageSize);
+        this.getGamesList(current,pageSize);
+    };
+
+
     render() {
         return (
             <div className="game">
                 {/*更新数据按钮*/}
                 <div>
-                    <Button type="primary">添加</Button>
+                    <Row>
+                        <Col span={6}><Button type="primary">添加</Button></Col>
+                    </Row>
                 </div>
+
                 <Table columns={this.columns} dataSource={this.state.dataSource}/>
+
+                {/*current={this.state.current} pageSize={this.state.pageSize}*/}
+
+                <LocaleProvider locale={zhCN}>
+                    <Pagination size="medium" onChange={current => this.getPages(current,this.state.pageSize)} onShowSizeChange={pageSize => this.getPagesSize(this.state.current,20)} total={this.state.gameAmount} showSizeChanger showQuickJumper />
+                </LocaleProvider>,
+
                 {/* 在 React 中，父组件可以向子组件通过传 props 的方式，向子组件进行通讯。*/}
                 <DetailModal msgElement={this.state.modalVisible} />
             </div>

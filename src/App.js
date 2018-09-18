@@ -10,7 +10,7 @@ class App extends Component {
     }
     render() {
         return (
-            <div className="side-bar" id="side-bar">
+            <div id="container">
                 <Router>
                     <div className="side-bar-content">
                         <ul className="side-bar">
