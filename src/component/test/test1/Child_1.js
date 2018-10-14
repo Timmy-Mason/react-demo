@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'antd';
 // 观察者模式:类似vue里边的$emit和$on事件触发机制
-import eventProxy from '../../eventProxy'
+import eventProxy from '../../../eventProxy'
 class NewPage extends Component {
     constructor(props){
         super(props);

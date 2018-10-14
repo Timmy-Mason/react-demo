@@ -11,7 +11,7 @@ import eventProxy from '../../eventProxy'
 // css样式
 import '../../assets/css/game.css';
 // antDesign
-import {Table, Divider, Button,Row,Col,Pagination,LocaleProvider} from 'antd';
+import {Table, Divider,Input,Button,Row,Col,Pagination,LocaleProvider} from 'antd';
 // 中文包，在下边使用
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 
@@ -25,7 +25,9 @@ class Nav extends Component {
             modalVisible: {},
             gameAmount:0,
             current:1,
-            pageSize:10
+            pageSize:5,
+            pageSizeOptions: ['5', '10', '15', '20'],
+            copyWriter:"添加文案"
     };
     };
     // 组件内的方法或者是变量都要使用this指针去访问
@@ -92,6 +94,11 @@ class Nav extends Component {
     //当组件输出到 DOM 后会执行 componentDidMount()
     //componentDidMount能够获取到dom元素
     componentDidMount(){
+        // 子界面修改成功，主界面数据更新
+        eventProxy.on('modifyNameSuccess', () => {
+            this.getGamesAmount();
+            this.getGamesList(1,10);
+        });
        this.getGamesAmount();
        this.getGamesList(1,10);
     }
@@ -149,50 +156,52 @@ class Nav extends Component {
             }
             _this.setState({'dataSource':res.data});// 数据是20条，为什么结果出不来
             // dataSource没有初始化，获取的高度是没有填充数据的，不准确
-            console.log(document.getElementById("container").height); // undefined
-            console.log(document.getElementById("container").offsetHeight); // 980
+            // console.log(document.getElementById("container").height); // undefined
+            // console.log(document.getElementById("container").offsetHeight); // 980
             document.getElementsByClassName("side-bar")[0].style.height = document.getElementById("container").offsetHeight + 100 + 'px';
         });
     };
     getPages = (current,pageSize) =>{
-        console.log(current);
-        console.log(pageSize);
+        console.log("页码: " + current);
+        console.log("每页条数: " + pageSize);
         this.setState({
            "current": current,
            "pageSize": pageSize
         });
         this.getGamesList(current,pageSize);
     };
+    handelChange = (e) =>{
+        this.setState({
+            copyWriter:e.target.value
+        });
+    };
     getPagesSize = (current,pageSize) =>{
-        // 遗留问题：pageSize拿到的不正确，即使传一个固定的值，也回出现问题。
+        console.log("页码: " + current);
+        console.log("每页条数: " + pageSize);
+
+        // 遗留问题：pageSize拿到的不正确，即使传一个固定的值，也回出现问题（可能是UI组件版本分页的问题）。
         this.setState({
             "current": current,
             "pageSize": pageSize
         });
-        console.log(current);
-        console.log(pageSize);
         this.getGamesList(current,pageSize);
     };
-
-
     render() {
         return (
             <div className="game">
                 {/*更新数据按钮*/}
                 <div>
-                    <Row>
-                        <Col span={6}><Button type="primary">添加</Button></Col>
+                    <Row gutter={16}>
+                        <Col span={6}><Button type="primary">{this.state.copyWriter}</Button></Col>
+                        <Col span={6}>
+                            <Input placeholder="输入对应的值" onChange={this.handelChange.bind(this)} value={this.state.copyWriter}/>
+                        </Col>
                     </Row>
                 </div>
-
                 <Table columns={this.columns} dataSource={this.state.dataSource}/>
-
-                {/*current={this.state.current} pageSize={this.state.pageSize}*/}
-
                 <LocaleProvider locale={zhCN}>
-                    <Pagination size="medium" onChange={current => this.getPages(current,this.state.pageSize)} onShowSizeChange={pageSize => this.getPagesSize(this.state.current,20)} total={this.state.gameAmount} showSizeChanger showQuickJumper />
-                </LocaleProvider>,
-
+                    <Pagination size="medium" pageSizeOptions={this.state.pageSizeOptions} onChange={current => this.getPages(current,this.state.pageSize)} onShowSizeChange={pageSize => this.getPagesSize(this.state.current,pageSize)} total={this.state.gameAmount} showSizeChanger showQuickJumper />
+                </LocaleProvider>
                 {/* 在 React 中，父组件可以向子组件通过传 props 的方式，向子组件进行通讯。*/}
                 <DetailModal msgElement={this.state.modalVisible} />
             </div>

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+// 请求方式
+import axios from 'axios';
 // 观察者模式:类似vue里边的$emit和$on事件触发机制
 import eventProxy from '../../eventProxy'
-import { Modal,Input} from 'antd';
+import { Modal,Input,message } from 'antd';
+// 公共部分（包括公共使用的token）
+import publicData from '../../util';
 
 const inputColorOne = {
     marginTop:10,
@@ -34,7 +38,8 @@ class detailModal extends Component {
                   visible: true,
                   name:item.name,
                   brief:item.brief,
-                  button_content:item.button_content
+                  button_content:item.button_content,
+                  game_id:item._id,
             });
         });
     };
@@ -53,30 +58,30 @@ class detailModal extends Component {
             // });
         }
     };
-    componentWillUpdate(){
-
-    };
-
+    handelChange = (e) =>{this.setState({name:e.target.value})};
     // 弹窗---确定
     onOk = () => {
-        this.setState({
-            visible: false
+        // 修改游戏
+        let _this = this;
+        axios.defaults.headers.put['Access-Control-Expose-Headers'] = 'Token';
+        axios.defaults.headers.put['Token'] = publicData.token;
+        axios.put("https://dev.zhi-qu.ghzs.com/v1d0/games/" + this.state.game_id,{name:this.state.name}).then(function (res) {
+            _this.setState({visible: false});
+            message.info('游戏名字修改成功');
+            // 通知主界面，刷新数据
+            eventProxy.trigger('modifyNameSuccess');
         });
     };
     // 弹窗--取消
-    onCancel = () =>{
-        this.setState({
-            visible: false
-        });
-    };
+    onCancel = () =>{this.setState({visible: false});};
     render() {
         return (
             <div>
                 <Modal visible={this.state.visible} title="编辑游戏" onCancel={this.onCancel} onOk={this.onOk}>
                     <p><span style={titleColor}>{this.state.name}</span>:也能通过弹窗的打开做到及时更新</p>
-                    <Input placeholder="游戏名字" value={this.state.name} readOnly />
-                    <Input style={inputColorOne} placeholder="游戏名字" value={this.state.brief} readOnly />
-                    <Input style={inputColorTwo} placeholder="游戏名字" value={this.state.button_content} readOnly />
+                    <Input onChange={this.handelChange.bind(this)} placeholder="请输入游戏名字" value={this.state.name}/>
+                    <Input placeholder="请输入游戏名字" style={inputColorOne} value={this.state.brief}/>
+                    <Input placeholder="请输入游戏名字" style={inputColorTwo} value={this.state.button_content}/>
                 </Modal>
             </div>
         );

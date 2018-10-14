@@ -2505,3 +2505,5 @@ child_2.js文件中观察接收：eventProxy.on('msg', (msg) => {this.setState({
 
 
 
+
+
