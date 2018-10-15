@@ -23,7 +23,7 @@ class NewPage extends Component {
         return (
             <div>
                 <h2>child_1组件</h2>
-                <Button type="primary" onClick={this.passParams.bind()}>传递参数到兄弟组件</Button>
+                <Button type="primary" onClick={this.passParams.bind(this)}>传递参数到兄弟组件</Button>
             </div>
         );
     }
