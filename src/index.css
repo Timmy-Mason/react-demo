@@ -6,3 +6,9 @@ body {
 .public h1{
   margin-bottom: 0;
 }
+.public h1 button{
+  position: absolute;
+  right:50px;
+  top:10px;
+}
+

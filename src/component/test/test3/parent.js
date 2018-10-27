@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link,Route,BrowserRouter as Router} from 'react-router-dom'
+import {Link,Switch,Redirect,Route,BrowserRouter as Router} from 'react-router-dom'
 import { Button } from 'antd';
 import Game from '../../game/index';
 import tabs from  '../../projectShufflingTab/index'
@@ -14,7 +14,7 @@ class parent extends Component {
 
     }
     handleClick(){
-        this.props.history.push({ pathname : '/tabs' ,query : { day: 'Friday'} })
+        this.props.history.push({ pathname : '/Tabs' ,query : { day: 'Friday'} })
     }
     render() {
         return (
@@ -37,12 +37,15 @@ class parent extends Component {
                         {/*<Button type="primary">点击我跳转</Button>*/}
                     {/*</Link>*/}
 
-                    {/*第而种：js跳转*/}
+                    {/*第二种：js跳转*/}
                     <Button onClick={this.handleClick.bind(this)} type="primary">点击我跳转</Button>
 
                 </ul>
-                <Route path={`/parent/child1`} component={Game}/>
-                <Route path={`/parent/child2`} component={tabs}/>
+                <Switch>
+                    <Route path={`/parent/child1`} component={Game}/>
+                    <Route path={`/parent/child2`} component={tabs}/>
+                    <Redirect to="/parent/child1" />
+                </Switch>
             </div>
         );
     }

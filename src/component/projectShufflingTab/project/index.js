@@ -15,12 +15,10 @@ class project extends Component {
     columns = [
         {
             title: '序号',
-            dataIndex: 'order',
-            key: 'order'
+            dataIndex: 'order'
         }, {
             title: '专题',
             dataIndex: 'name',
-            key: 'name',
             render: (text, record, index) => (
                 <span>
                     <a href="javascript:void(0);">{text}</a>
@@ -29,23 +27,18 @@ class project extends Component {
         }, {
             title: '游戏数量',
             dataIndex: 'topic_game_count',
-            key: '_id'
         }, {
             title: 'creator',
             dataIndex: 'creator',
-            key: '_id'
         }, {
             title: '_id',
             dataIndex: '_id',
-            key: '_id'
         }, {
             title: 'modified_time',
             dataIndex: 'modified_time',
-            key: '_id'
         }, {
             title: '修改时间',
             dataIndex: 'online_time',
-            key: 'online_time',
             render: () => {
                 return (
                     <div>

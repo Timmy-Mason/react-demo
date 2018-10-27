@@ -13,23 +13,24 @@ class login extends Component {
         }
     }
     componentDidMount() {
-
+        // 已生效
+        // if("判断是否登陆的条件"){
+        //     this.props.history.push({ pathname : '/APP'})
+        // }
     }
     handleClick(){
-        console.log("点击按钮");
-        this.setState({
-            loginPath:""
-        })
+        this.props.history.push({ pathname : '/APP'})
     }
     render() {
         return (
             <div>
                 {/*<Button onClick={this.handleClick.bind(this)} type="primary">点击我跳转</Button>*/}
                 {/*<Route path={this.state.loginPath} component={App}/>*/}
-                <Link to="/App">
-                    <Button type="primary">点击我跳转</Button>
-                </Link>
-                <Route path="/App" component={App}></Route>
+                {/*<Link to="/App">*/}
+                    {/*<Button type="primary">点击我跳转</Button>*/}
+                {/*</Link>*/}
+                {/*<Route path="/App" component={App}></Route>*/}
+                <Button onClick={this.handleClick.bind(this)} type="primary">点击我跳转</Button>
             </div>
         );
     }
