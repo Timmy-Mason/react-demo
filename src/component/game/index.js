@@ -131,7 +131,7 @@ class Nav extends Component {
         let _this = this;
         axios.defaults.headers.get['Access-Control-Expose-Headers'] = 'Token';
         axios.defaults.headers.get['Token'] = publicData.token;
-        let gamesAmountUrl = "https://dev.zhi-qu.ghzs.com/v1d0/games:count";
+        let gamesAmountUrl = "https://uapi.zhiquzs.com/v1d0/games:count";
         // 游戏数量
         axios.get(gamesAmountUrl).then(function (res) {
             _this.setState({'gameAmount':res.data});
@@ -142,7 +142,7 @@ class Nav extends Component {
         let _this = this;
         axios.defaults.headers.get['Access-Control-Expose-Headers'] = 'Token';
         axios.defaults.headers.get['Token'] = publicData.token;
-        let gamesListUrl = "https://dev.zhi-qu.ghzs.com/v1d0/games?page="+ current +"&page_size=" + pageSize;
+        let gamesListUrl = "https://uapi.zhiquzs.com/v1d0/games?page="+ current +"&page_size=" + pageSize;
         // 游戏列表
         axios.get(gamesListUrl).then(function (res) {
             // componentsDidMount只会在组件加载完后执行一次，之后更新state、props都不会执行，除非重新加载组件。

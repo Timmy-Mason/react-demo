@@ -60,7 +60,7 @@ class project extends Component {
         let _this = this;
         axios.defaults.headers.get['Access-Control-Expose-Headers'] = 'Token';
         axios.defaults.headers.get['Token'] = publicData.token;
-        let gamesListUrl = "https://dev.zhi-qu.ghzs.com/v1d0/rotations?page=" + current + "&page_size=" + pageSize;
+        let gamesListUrl = "https://uapi.zhiquzs.com/v1d0/rotations?page=" + current + "&page_size=" + pageSize;
         // 游戏列表
         axios.get(gamesListUrl).then(function (res) {
             for (let i = 0; i < res.data.length; i++) {

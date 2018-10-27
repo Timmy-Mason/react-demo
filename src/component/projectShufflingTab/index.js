@@ -15,7 +15,8 @@ class tabs extends Component {
     };
     // 获取数据
     componentDidMount(){
-
+        // 由parent组件跳转进来，带的参数,手动获取
+        // console.log(this.props.location.query.day);
     };
     render() {
         return (

@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+// 三个都必须要引入
 import {Link,Route,BrowserRouter as Router} from 'react-router-dom'
 import Game from './component/game/index';
 import tabs from  './component/projectShufflingTab/index'
 import parent from  './component/test/test3/parent'
 import child from  './component/test/test3/child'
-
-
-
 import test2 from './component/test/test2/index';
 import test1 from './component/test/test1/index';
+
+import { Button } from 'antd';
+
+
 import './App.css';
 class App extends Component {
     constructor(props) {
@@ -33,9 +35,7 @@ class App extends Component {
                             {/*<Route path="/test1:id" component={test1}></Route>*/}
                             {/*<Route path="/test2" component={test2} ></Route>*/}
                             {/*嵌套路由*/}
-                            <Route path="/parent" component={parent}>
-                                <Route path="child/:id" component={child} />
-                            </Route>
+                            <Route path="/parent" component={parent}></Route>
                         </div>
                     </div>
                 </Router>

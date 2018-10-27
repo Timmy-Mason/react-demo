@@ -13,7 +13,7 @@ const projectNav = {
 };
 ReactDOM.render(
     <div className="public">
-        <h1 style={projectNav}>React</h1>
+        <h1 style={projectNav}>游戏管理后台</h1>
         <BrowserRouter>
             <Switch>
                 {/* 一、第一次解析到App这个组件，将之前引入的组件App加载进来，
