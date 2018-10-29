@@ -13,7 +13,8 @@ class parent extends Component {
     componentDidMount() {
 
     }
-    handleClick(){
+    handleClick(item){
+        console.log(item);
         this.props.history.push({ pathname : '/Tabs' ,query : { day: 'Friday'} })
     }
     render() {
@@ -38,7 +39,8 @@ class parent extends Component {
                     {/*</Link>*/}
 
                     {/*第二种：js跳转*/}
-                    <Button onClick={this.handleClick.bind(this)} type="primary">点击我跳转</Button>
+                    {/*<Button onClick={this.handleClick.bind(this,"我是参数")} type="primary">点击我跳转</Button>*/}
+                    <Button onClick={() => this.handleClick("我是参数")} type="primary">点击我跳转</Button>
 
                 </ul>
                 <Switch>
