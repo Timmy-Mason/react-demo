@@ -4,6 +4,9 @@ import {Link,HashRouter,Switch,Redirect,Route,BrowserRouter as Router} from 'rea
 import Game from './component/game/index';
 import Tabs from  './component/projectShufflingTab/index'
 import Parent from  './component/test/test3/parent'
+
+import cookie from 'react-cookies'
+
 import child from  './component/test/test3/child'
 import test2 from './component/test/test2/index';
 import test1 from './component/test/test1/index';
@@ -23,6 +26,7 @@ class App extends Component {
     }
 
     handleClick(){
+        cookie.remove("react_admin_token");
         this.props.history.push({ pathname : '/'})
     }
 
