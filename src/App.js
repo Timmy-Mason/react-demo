@@ -1,23 +1,24 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 // 三个都必须要引入
-import {Link,HashRouter,Switch,Redirect,Route,BrowserRouter as Router} from 'react-router-dom'
+import {Link, HashRouter, Switch, Redirect, Route, BrowserRouter as Router} from 'react-router-dom'
+import cookie from 'react-cookies'
 import Game from './component/game/index';
 import Tabs from  './component/projectShufflingTab/index'
-import Parent from  './component/test/test3/parent'
+import Parent from  './component/parent_children/parent'
 
-import cookie from 'react-cookies'
-
-import child from  './component/test/test3/child'
-import test2 from './component/test/test2/index';
 import test1 from './component/test/test1/index';
+import test2 from './component/test/test2/index';
 
 import './App.css';
-import { Button } from 'antd';
+import {Button, Layout, Menu, Icon} from 'antd';
+const {Header, Footer, Sider, Content} = Layout;
+const SubMenu = Menu.SubMenu;
+
 
 const projectNav = {
-    backgroundColor:"#F8F8F8",
-    color:"#778BBA",
-    borderBottom:"1px solid #e7e7e7"
+    backgroundColor: "#F8F8F8",
+    color: "#778BBA",
+    borderBottom: "1px solid #e7e7e7"
 };
 
 class App extends Component {
@@ -25,38 +26,116 @@ class App extends Component {
         super(props);
     }
 
-    handleClick(){
+    handleClick() {
         cookie.remove("react_admin_token");
-        this.props.history.push({ pathname : '/'})
+        this.props.history.push({pathname: '/'})
     }
 
     render() {
         return (
             <div id="container">
-                <h1 style={projectNav}>游戏管理后台<Button type="primary" onClick={this.handleClick.bind(this)}>点击退出登陆</Button></h1>
                 <HashRouter>
-                    <div className="side-bar-content">
-                        <ul className="side-bar">
-                            <li><Link to="/">游戏</Link></li>
-                            <li><Link to="/tabs">tabs</Link></li>
-                            {/*通过路由切换传递参数*/}
-                            {/*<li><Link to="/test1:canshu和parmas">test1</Link></li>*/}
-                            {/*<li><Link to="/test2">test2</Link></li>*/}
-                            <li><Link to="/parent">parent组件</Link></li>
-                        </ul>
-                        <div className="content">
-                            <Switch>
-                                {/*备注: 如果第一个为"/",那么必须在第一个Route标签上边加上 exact*/}
-                                <Route path="/games" component={Game}></Route>
-                                <Route path="/tabs" component={Tabs}></Route>
-                                {/*<Route path="/test1:id" component={test1}></Route>*/}
-                                {/*<Route path="/test2" component={test2} ></Route>*/}
-                                {/*嵌套路由*/}
-                                <Route path="/parent" component={Parent}></Route>
-                                <Redirect to="/games"/>
-                            </Switch>
-                        </div>
-                    </div>
+                    {/*<div className="side-bar-content">*/}
+                    {/*<ul className="side-bar">*/}
+                    {/*<li><Link to="/">游戏</Link></li>*/}
+                    {/*<li><Link to="/tabs">tabs</Link></li>*/}
+                    {/*/!*通过路由切换传递参数*!/*/}
+                    {/*/!*<li><Link to="/test1:canshu和parmas">test1</Link></li>*!/*/}
+                    {/*/!*<li><Link to="/test2">test2</Link></li>*!/*/}
+                    {/*<li><Link to="/parent">parent组件</Link></li>*/}
+                    {/*</ul>*/}
+                    {/*<div className="content">*/}
+                    {/*<Switch>*/}
+                    {/*/!*备注: 如果第一个为"/",那么必须在第一个Route标签上边加上 exact*!/*/}
+                    {/*<Route path="/games" component={Game}></Route>*/}
+                    {/*<Route path="/tabs" component={Tabs}></Route>*/}
+                    {/*/!*<Route path="/test1:id" component={test1}></Route>*!/*/}
+                    {/*/!*<Route path="/test2" component={test2} ></Route>*!/*/}
+                    {/*/!*嵌套路由*!/*/}
+                    {/*<Route path="/parent" component={Parent}></Route>*/}
+                    {/*<Redirect to="/games"/>*/}
+                    {/*</Switch>*/}
+                    {/*</div>*/}
+                    {/*</div>*/}
+
+                    <Layout>
+                        {/*<Sider>*/}
+                        {/*<ul className="side-bar">*/}
+                        {/*<span>测试数据后台 v1.0</span>*/}
+                        {/*<li><Link to="/">游戏</Link></li>*/}
+                        {/*<li><Link to="/tabs">tabs</Link></li>*/}
+                        {/*/!*通过路由切换传递参数*!/*/}
+                        {/*/!*<li><Link to="/test1:canshu和parmas">test1</Link></li>*!/*/}
+                        {/*/!*<li><Link to="/test2">test2</Link></li>*!/*/}
+                        {/*<li><Link to="/parent">parent组件</Link></li>*/}
+                        {/*</ul>*/}
+                        {/*</Sider>*/}
+
+                        <Sider className="side-bar"
+                               breakpoint="lg"
+                               collapsedWidth="0"
+                               onBreakpoint={(broken) => {
+                                   console.log(broken);
+                               }}
+                               onCollapse={(collapsed, type) => {
+                                   console.log(collapsed, type);
+                               }}
+                        >
+                            <Menu mode="inline" defaultSelectedKeys={['1']}>
+                                <Menu.Item key="1">
+                                    <Link to="/">
+                                        <Icon type="user"/>
+                                        <span className="nav-text">游戏</span>
+                                    </Link>
+                                </Menu.Item>
+                                <Menu.Item key="2">
+                                    <Link to="/tabs">
+                                        <Icon type="video-camera"/>
+                                        <span className="nav-text">tabs</span>
+                                    </Link>
+                                </Menu.Item>
+                                <Menu.Item key="3">
+                                    <Link to="/parent">
+                                        <Icon type="upload"/>
+                                        <span className="nav-text">parent_children组件</span>
+                                    </Link>
+                                </Menu.Item>
+
+                                <SubMenu
+                                    key="sub1"
+                                    title={<span><Icon type="user"/><span>组件之间传值</span></span>}
+                                >
+                                    <Menu.Item key="4">
+                                        <Link to="/test1:id和val">同级组件之间传值</Link>
+                                    </Menu.Item>
+                                    <Menu.Item key="5">
+                                        <Link to="/test2">父子组件之间传值</Link>
+                                    </Menu.Item>
+                                </SubMenu>
+                                {/*通过路由切换传递参数*/}
+                                {/*<li><Link to="/test1:canshu和parmas">test1</Link></li>*/}
+                                {/*<li><Link to="/test2">test2</Link></li>*/}
+                            </Menu>
+                        </Sider>
+
+                        <Layout>
+                            <Header><Button type="primary"
+                                            onClick={this.handleClick.bind(this)}>点击退出登陆</Button></Header>
+                            <Content style={{backgroundColor: '#fff'}}>
+                                <Switch>
+                                    {/*备注: 如果第一个为"/",那么必须在第一个Route标签上边加上 exact*/}
+                                    <Route path="/games" component={Game}></Route>
+                                    <Route path="/tabs" component={Tabs}></Route>
+                                    {/*嵌套路由*/}
+                                    <Route path="/parent" component={Parent}></Route>
+                                    {/*通过路由切换传递参数*/}
+                                    <Route path="/test1:id" component={test1}></Route>
+                                    <Route path="/test2" component={test2}></Route>
+                                    <Redirect to="/games"/>
+                                </Switch>
+                            </Content>
+                        </Layout>
+                    </Layout>
                 </HashRouter>
             </div>
         );

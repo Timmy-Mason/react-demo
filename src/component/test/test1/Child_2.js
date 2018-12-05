@@ -19,7 +19,7 @@ class NewPage extends Component {
     render() {
         return (
             <div>
-                <h2>child_2组件</h2>
+                <h2>child_2子组件</h2>
                 <p>child_2 component: {this.state.msg}</p>
             </div>
         );

@@ -187,6 +187,9 @@ class Nav extends Component {
             // dataSource没有初始化，获取的高度是没有填充数据的，不准确
             // console.log(document.getElementById("container").height); // undefined
             // console.log(document.getElementById("container").offsetHeight); // 980
+
+
+
             document.getElementsByClassName("side-bar")[0].style.height = document.getElementById("container").offsetHeight + 100 + 'px';
         });
     };

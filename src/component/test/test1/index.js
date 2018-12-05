@@ -7,7 +7,7 @@ class NewPage extends Component {
         return (
             <div>
                 {/*注意参数的名称*/}
-                <div><h2>parent组件</h2>:这是参数: <br/>{this.props.match.params.id}</div><br/><br/>
+                <div><h2>parent组件</h2>:这是通过路由跳转时候传递的参数: <br/>{this.props.match.params.id}</div><br/><br/>
                 <div>
                     <Child_1></Child_1> <br/><br/>
                     <Child_2></Child_2>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {Link,Switch,Redirect,Route,BrowserRouter as Router} from 'react-router-dom'
 import { Button } from 'antd';
-import Game from '../../game/index';
-import tabs from  '../../projectShufflingTab/index'
+import Game from '../game/index';
+import tabs from  '../projectShufflingTab/index'
 class parent extends Component {
     constructor(props){
         super(props);
@@ -20,7 +20,7 @@ class parent extends Component {
     render() {
         return (
             <div>
-                <h2>parent组件:主题列表(我是parent_child tab栏里边对应的组件)</h2>
+                <h2>parent组件:主题列表</h2>
                 <ul>
                     <li>
                         <Link to="/parent/child1">

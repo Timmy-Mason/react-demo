@@ -6,7 +6,6 @@ import Game from './game/index';
 import cookie from 'react-cookies'
 import './login.css'
 
-// 从这里开始修改
 import {message,Form, Icon, Input, Button, Checkbox,} from 'antd';
 const FormItem = Form.Item;
 
