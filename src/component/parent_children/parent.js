@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {Link,Switch,Redirect,Route,BrowserRouter as Router} from 'react-router-dom'
 import { Button } from 'antd';
+// 子组件为 Game 和 tabs
 import Game from '../game/index';
 import tabs from  '../projectShufflingTab/index'
+
 class parent extends Component {
     constructor(props){
         super(props);
@@ -41,7 +43,6 @@ class parent extends Component {
                     {/*第二种：js跳转*/}
                     {/*<Button onClick={this.handleClick.bind(this,"我是参数")} type="primary">点击我跳转</Button>*/}
                     <Button onClick={() => this.handleClick("我是参数")} type="primary">点击我跳转</Button>
-
                 </ul>
                 <Switch>
                     <Route path={`/parent/child1`} component={Game}/>

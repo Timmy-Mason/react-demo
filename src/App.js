@@ -5,15 +5,12 @@ import cookie from 'react-cookies'
 import Game from './component/game/index';
 import Tabs from  './component/projectShufflingTab/index'
 import Parent from  './component/parent_children/parent'
-
-import test1 from './component/test/test1/index';
-import test2 from './component/test/test2/index';
-
+import test1 from './component/pass_data/same_level/index';
+import test2 from './component/pass_data/parent_children/index';
 import './App.css';
 import {Button, Layout, Menu, Icon} from 'antd';
 const {Header, Footer, Sider, Content} = Layout;
 const SubMenu = Menu.SubMenu;
-
 
 const projectNav = {
     backgroundColor: "#F8F8F8",
@@ -97,7 +94,7 @@ class App extends Component {
                                 <Menu.Item key="3">
                                     <Link to="/parent">
                                         <Icon type="upload"/>
-                                        <span className="nav-text">parent_children组件</span>
+                                        <span className="nav-text">嵌套组件</span>
                                     </Link>
                                 </Menu.Item>
 
