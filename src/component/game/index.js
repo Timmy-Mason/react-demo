@@ -1,15 +1,15 @@
 // 每个组件都要引入的
 import React, {Component} from 'react';
-// 详情组件（具有修改功能的弹窗）
-import DetailModal from './detailModal'
+// 详情组件（具有修改功能的弹窗:配置alias别名）
+import DetailModal from '@/component/game/detailModal'
 // 请求方式
 import axios from 'axios';
 // 公共部分（包括公共使用的token）
-import publicData from '../../util';
+import publicData from '@/util';
 // 观察者模式:类似vue里边的$emit和$on事件触发机制
-import eventProxy from '../../eventProxy'
+import eventProxy from '@/eventProxy'
 // css样式
-import '../../assets/css/game.css';
+import '@/assets/css/game.css';
 // antDesign
 import {Table, Divider, Input, Button, Row, Col, Pagination, LocaleProvider} from 'antd';
 // 中文包，在下边使用
