@@ -7,6 +7,9 @@ import Tabs from  './component/projectShufflingTab/index'
 import Parent from  './component/parent_children/parent'
 import test1 from './component/pass_data/same_level/index';
 import test2 from './component/pass_data/parent_children/index';
+import flux from './component/flux/index';
+import flux2 from './component/flux/receive_flux';
+
 import './App.css';
 import {Button, Layout, Menu, Icon} from 'antd';
 const {Header, Footer, Sider, Content} = Layout;
@@ -72,25 +75,28 @@ class App extends Component {
                                breakpoint="lg"
                                collapsedWidth="0"
                                onBreakpoint={(broken) => {
-                                   console.log(broken);
+
                                }}
                                onCollapse={(collapsed, type) => {
-                                   console.log(collapsed, type);
+
                                }}
                         >
                             <Menu mode="inline" defaultSelectedKeys={['1']}>
+
                                 <Menu.Item key="1">
                                     <Link to="/">
                                         <Icon type="user"/>
                                         <span className="nav-text">游戏</span>
                                     </Link>
                                 </Menu.Item>
+
                                 <Menu.Item key="2">
                                     <Link to="/tabs">
                                         <Icon type="video-camera"/>
                                         <span className="nav-text">tabs</span>
                                     </Link>
                                 </Menu.Item>
+
                                 <Menu.Item key="3">
                                     <Link to="/parent">
                                         <Icon type="upload"/>
@@ -98,10 +104,7 @@ class App extends Component {
                                     </Link>
                                 </Menu.Item>
 
-                                <SubMenu
-                                    key="sub1"
-                                    title={<span><Icon type="user"/><span>组件之间传值</span></span>}
-                                >
+                                <SubMenu key="sub1" title={<span><Icon type="user"/><span>组件之间传值</span></span>}>
                                     <Menu.Item key="4">
                                         <Link to="/test1:id和val">同级组件之间传值</Link>
                                     </Menu.Item>
@@ -109,6 +112,22 @@ class App extends Component {
                                         <Link to="/test2">父子组件之间传值</Link>
                                     </Menu.Item>
                                 </SubMenu>
+
+                                <SubMenu key="sub2" title={<span><Icon type="user"/><span>flux数据流传值</span></span>}>
+                                    <Menu.Item key="6">
+                                        <Link to="/flux">
+                                            <Icon type="check-square"/>
+                                            <span className="nav-text">flux</span>
+                                        </Link>
+                                    </Menu.Item>
+                                    <Menu.Item key="7">
+                                        <Link to="/flux2">
+                                            <Icon type="edit"/>
+                                            <span className="nav-text">flux2</span>
+                                        </Link>
+                                    </Menu.Item>
+                                </SubMenu>
+
                                 {/*通过路由切换传递参数*/}
                                 {/*<li><Link to="/test1:canshu和parmas">test1</Link></li>*/}
                                 {/*<li><Link to="/test2">test2</Link></li>*/}
@@ -128,6 +147,8 @@ class App extends Component {
                                     {/*通过路由切换传递参数*/}
                                     <Route path="/test1:id" component={test1}></Route>
                                     <Route path="/test2" component={test2}></Route>
+                                    <Route path="/flux" component={flux}></Route>
+                                    <Route path="/flux2" component={flux2}></Route>
                                     <Redirect to="/games"/>
                                 </Switch>
                             </Content>

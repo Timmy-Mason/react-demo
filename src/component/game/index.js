@@ -14,6 +14,8 @@ import '@/assets/css/game.css';
 import {Table, Divider, Input, Button, Row, Col, Pagination, LocaleProvider} from 'antd';
 // 中文包，在下边使用
 import zhCN from 'antd/lib/locale-provider/zh_CN';
+import ListStore from '../stores/ListStores'
+
 
 // 定义表格形式
 class Nav extends Component {
@@ -27,7 +29,8 @@ class Nav extends Component {
             current: 1,
             pageSize: 5,
             pageSizeOptions: ['5', '10', '15', '20'],
-            counter: 0
+            counter: 0,
+            original_flux:"初始化flux"
         };
     };
 
@@ -153,6 +156,24 @@ class Nav extends Component {
         });
         this.getGamesAmount();
         this.getGamesList(1, 10);
+
+        // flux 全局数据共享
+        ListStore.addChangeListener(this.onChange);
+        if(ListStore.getAll()){
+            this.setState({
+                original_flux:ListStore.getAll()
+            });
+        }
+    }
+
+    componentWillUnmount() {
+        // 加上之后change就不会触发了，不知道是什么问题
+        // ListStore.removeChangeListener(this.onChange);
+    }
+
+    onChange() {
+        console.log("game/index.js");
+        console.log(ListStore.getAll());
     }
 
     // 游戏数目
@@ -187,8 +208,6 @@ class Nav extends Component {
             // dataSource没有初始化，获取的高度是没有填充数据的，不准确
             // console.log(document.getElementById("container").height); // undefined
             // console.log(document.getElementById("container").offsetHeight); // 980
-
-
 
             document.getElementsByClassName("side-bar")[0].style.height = document.getElementById("container").offsetHeight + 100 + 'px';
         });
@@ -225,6 +244,7 @@ class Nav extends Component {
                 {/*更新数据按钮*/}
                 <div>
                     <Row gutter={16}>
+                        <Col span={6}><Button type="primary">{this.state.original_flux}</Button></Col>
                         <Col span={6}><Button type="primary" onClick={this.addCopyWriter.bind(this)}>点击修改输入框内容</Button></Col>
                         <Col span={6}>
                             <Input placeholder="输入对应的值" onChange={this.handelChange.bind(this)}
