@@ -9,8 +9,8 @@ class NewPage extends Component {
         };
     }
     componentDidMount() {
-        // 监听 msg 事件
-        eventProxy.on('msg', (msg) => {
+        // 监听 child1_send 事件
+        eventProxy.on('child1_send', (msg) => {
             this.setState({
                 msg
             });
@@ -19,8 +19,8 @@ class NewPage extends Component {
     render() {
         return (
             <div>
-                <h2>child_2子组件</h2>
-                <p>child_2 component: {this.state.msg}</p>
+                <h1>child_2 子组件</h1> <br/><br/><br/><br/><br/>
+                <h1 style={{color:"red"}}>{this.state.msg}</h1>
             </div>
         );
     }

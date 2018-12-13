@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
+import cookie from 'react-cookies'
 // 三个都必须要引入
 import {Link, HashRouter, Switch, Redirect, Route, BrowserRouter as Router} from 'react-router-dom'
-import cookie from 'react-cookies'
 import Game from './component/game/index';
 import Tabs from  './component/projectShufflingTab/index'
 import Parent from  './component/parent_children/parent'
-import test1 from './component/pass_data/same_level/index';
-import test2 from './component/pass_data/parent_children/index';
+import same_level from './component/pass_data/same_level/index';
+import parent_children from './component/pass_data/parent_children/index';
 import flux from './component/flux/index';
 import flux2 from './component/flux/receive_flux';
 
@@ -82,7 +82,7 @@ class App extends Component {
                                }}
                         >
                             <Menu mode="inline" defaultSelectedKeys={['1']}>
-
+                                {/*默认组件的to="路径"，路径可以不写，直接默认对应的是Route里边的Redirect*/}
                                 <Menu.Item key="1">
                                     <Link to="/">
                                         <Icon type="user"/>
@@ -106,10 +106,10 @@ class App extends Component {
 
                                 <SubMenu key="sub1" title={<span><Icon type="user"/><span>组件之间传值</span></span>}>
                                     <Menu.Item key="4">
-                                        <Link to="/test1:id和val">同级组件之间传值</Link>
+                                        <Link to="/same_level:id和val">同级组件之间传值</Link>
                                     </Menu.Item>
                                     <Menu.Item key="5">
-                                        <Link to="/test2">父子组件之间传值</Link>
+                                        <Link to="/parent_children">父子组件之间传值</Link>
                                     </Menu.Item>
                                 </SubMenu>
 
@@ -145,8 +145,8 @@ class App extends Component {
                                     {/*嵌套路由*/}
                                     <Route path="/parent" component={Parent}></Route>
                                     {/*通过路由切换传递参数*/}
-                                    <Route path="/test1:id" component={test1}></Route>
-                                    <Route path="/test2" component={test2}></Route>
+                                    <Route path="/same_level:id" component={same_level}></Route>
+                                    <Route path="/parent_children" component={parent_children}></Route>
                                     <Route path="/flux" component={flux}></Route>
                                     <Route path="/flux2" component={flux2}></Route>
                                     <Redirect to="/games"/>

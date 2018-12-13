@@ -12,20 +12,24 @@ class NewPage extends Component {
     componentDidMount() {
         setTimeout(() => {
             // 发布 msg 事件
-            eventProxy.trigger('msg', 'end');
+            eventProxy.trigger('child1_send', 'end');
         }, 1000);
     }
     passParams(){
-        eventProxy.trigger('msg', '来自child_1的数据');
+        // 通过 trigger 和 on 发送和接收事件，同时带上参数
+        eventProxy.trigger('child1_send', '来自兄当组件child_1的数据');
     }
 
     render() {
         return (
             <div>
-                <h2>child_1子组件</h2>
+                <h1>child_1 子组件</h1>
                 <Button type="primary" onClick={this.passParams.bind(this)}>传递参数到兄弟组件</Button>
             </div>
         );
     }
 }
 export default NewPage;
+
+// 触发事件，eventProxy.trigger ，传递参数：
+// 另一个兄弟页面, eventProxy.on 接收参数

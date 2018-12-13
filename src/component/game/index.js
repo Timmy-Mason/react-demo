@@ -12,10 +12,9 @@ import eventProxy from '@/eventProxy'
 import '@/assets/css/game.css';
 // antDesign
 import {Table, Divider, Input, Button, Row, Col, Pagination, LocaleProvider} from 'antd';
-// 中文包，在下边使用
+// 中文包
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import ListStore from '../stores/ListStores'
-
 
 // 定义表格形式
 class Nav extends Component {
@@ -128,18 +127,20 @@ class Nav extends Component {
         // 解决办法: 两种
 
         // 1.利用setState的第二个参数设置回调函数，setState更新后会触发这个callback函数;
-        this.setState({
-            counter: this.state.counter + 1
-        }, () => {
-            console.log(this.state.counter);
-        });
-        // 2.利用setTimeout
         // this.setState({
-        //     counter:this.state.counter + 1
-        // })
-        // setTimeout(() => {
-        //     console.log(this.state.counter)
-        // },0)
+        //     counter: this.state.counter + 1
+        // }, () => {
+        //     console.log(this.state.counter);
+        // });
+
+
+        // 2.利用setTimeout
+        this.setState({
+            counter:this.state.counter + 1
+        })
+        setTimeout(() => {
+            console.log(this.state.counter)
+        },0)
     }
     // componentWillMount不能获取到dom元素
     componentWillMount() {
