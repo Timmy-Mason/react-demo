@@ -10,6 +10,10 @@ import parent_children from './component/pass_data/parent_children/index';
 import flux from './component/flux/index';
 import flux2 from './component/flux/receive_flux';
 
+// 基础知识点
+import base_knowledge from './component/base_knowledge/index'
+
+
 import './App.css';
 import {Button, Layout, Menu, Icon} from 'antd';
 const {Header, Footer, Sider, Content} = Layout;
@@ -104,7 +108,7 @@ class App extends Component {
                                     </Link>
                                 </Menu.Item>
 
-                                <SubMenu key="sub1" title={<span><Icon type="user"/><span>组件之间传值</span></span>}>
+                                <SubMenu key="sub1" title={<span><Icon type="setting"/><span>组件之间传值</span></span>}>
                                     <Menu.Item key="4">
                                         <Link to="/same_level:id和val">同级组件之间传值</Link>
                                     </Menu.Item>
@@ -128,6 +132,13 @@ class App extends Component {
                                     </Menu.Item>
                                 </SubMenu>
 
+                                <Menu.Item key="8">
+                                    <Link to="/base_knowledge">
+                                        <Icon type="edit"/>
+                                        <span className="nav-text">基础知识点</span>
+                                    </Link>
+                                </Menu.Item>
+
                                 {/*通过路由切换传递参数*/}
                                 {/*<li><Link to="/test1:canshu和parmas">test1</Link></li>*/}
                                 {/*<li><Link to="/test2">test2</Link></li>*/}
@@ -149,6 +160,7 @@ class App extends Component {
                                     <Route path="/parent_children" component={parent_children}></Route>
                                     <Route path="/flux" component={flux}></Route>
                                     <Route path="/flux2" component={flux2}></Route>
+                                    <Route path="/base_knowledge" component={base_knowledge}></Route>
                                     <Redirect to="/games"/>
                                 </Switch>
                             </Content>
