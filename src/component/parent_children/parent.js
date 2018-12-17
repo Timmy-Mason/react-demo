@@ -26,7 +26,7 @@ class parent extends Component {
                 <h2>parent组件:主题列表</h2>
                 <ul>
                     <li>
-                        <Link to="/parent/child1">
+                        <Link to="/parent/">
                             点击跳转到 game 组件
                         </Link>
                     </li>
@@ -52,11 +52,7 @@ class parent extends Component {
 
                     {
                         this.props.routes.map((route,key)=>{
-                            if (route.exact) {
-                                return <Route key={key} exact path={route.path} component={route.component} />
-                            }else{
-                                return <Route key={key} path={route.path} component={route.component} />
-                            }
+                            return <Route exact key={key} path={route.path} component={route.component} />
                         })
                     }
 

@@ -25,10 +25,6 @@ let projectNav = {
     borderBottom: "1px solid #e7e7e7"
 };
 
-{/*aaa*/
-}
-
-
 // 路由模块化
 let routes = [
     {
@@ -45,7 +41,7 @@ let routes = [
         component: Parent,
         routes:[ /*嵌套路由*/
             {
-                path: "/parent/child1",
+                path: "/parent/",
                 component: Game
             },
             {
@@ -196,9 +192,6 @@ class App extends Component {
                                 {/*<li><Link to="/test2">test2</Link></li>*/}
                             </Menu>
                         </Sider>
-
-                        {/*aaa*/}
-
 
                         <Layout>
                             <Header><Button type="primary"
