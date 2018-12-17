@@ -13,7 +13,8 @@ class parent extends Component {
         };
     }
     componentDidMount() {
-
+        console.log(0);
+        console.log(this.props.routes);
     }
     handleClick(item){
         console.log(item);
@@ -45,9 +46,20 @@ class parent extends Component {
                     <Button onClick={() => this.handleClick("我是参数")} type="primary">点击我跳转</Button>
                 </ul>
                 <Switch>
-                    <Route path={`/parent/child1`} component={Game}/>
-                    <Route path={`/parent/child2`} component={tabs}/>
-                    <Redirect to="/parent/child1" />
+                    {/*<Route path={`/parent/child1`} component={Game}/>*/}
+                    {/*<Route path={`/parent/child2`} component={tabs}/>*/}
+                    {/*<Redirect to="/parent/child1" />*/}
+
+                    {
+                        this.props.routes.map((route,key)=>{
+                            if (route.exact) {
+                                return <Route key={key} exact path={route.path} component={route.component} />
+                            }else{
+                                return <Route key={key} path={route.path} component={route.component} />
+                            }
+                        })
+                    }
+
                 </Switch>
             </div>
         );

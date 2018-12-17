@@ -19,11 +19,63 @@ import {Button, Layout, Menu, Icon} from 'antd';
 const {Header, Footer, Sider, Content} = Layout;
 const SubMenu = Menu.SubMenu;
 
-const projectNav = {
+let projectNav = {
     backgroundColor: "#F8F8F8",
     color: "#778BBA",
     borderBottom: "1px solid #e7e7e7"
 };
+
+{/*aaa*/
+}
+
+
+// 路由模块化
+let routes = [
+    {
+        path: "/",
+        component: Game,
+        exact: true
+    },
+    {
+        path: "/tabs",
+        component: Tabs
+    },
+    {
+        path: "/parent",
+        component: Parent,
+        routes:[ /*嵌套路由*/
+            {
+                path: "/parent/child1",
+                component: Game
+            },
+            {
+                path: "/parent/child2",
+                component: Tabs
+            },
+        ]
+    },
+    {
+        path: "/same_level:id",
+        component: same_level
+    },
+    {
+        path: "/parent_children",
+        component: parent_children
+    },
+    {
+        path: "/flux",
+        component: flux
+    },
+    {
+        path: "/flux2",
+        component: flux2
+    }, ,
+    {
+        path: "/base_knowledge",
+        component: base_knowledge
+    },
+]
+
 
 class App extends Component {
     constructor(props) {
@@ -145,23 +197,40 @@ class App extends Component {
                             </Menu>
                         </Sider>
 
+                        {/*aaa*/}
+
+
                         <Layout>
                             <Header><Button type="primary"
                                             onClick={this.handleClick.bind(this)}>点击退出登陆</Button></Header>
                             <Content style={{backgroundColor: '#fff'}}>
                                 <Switch>
-                                    {/*备注: 如果第一个为"/",那么必须在第一个Route标签上边加上 exact*/}
-                                    <Route path="/games" component={Game}></Route>
-                                    <Route path="/tabs" component={Tabs}></Route>
-                                    {/*嵌套路由*/}
-                                    <Route path="/parent" component={Parent}></Route>
-                                    {/*通过路由切换传递参数*/}
-                                    <Route path="/same_level:id" component={same_level}></Route>
-                                    <Route path="/parent_children" component={parent_children}></Route>
-                                    <Route path="/flux" component={flux}></Route>
-                                    <Route path="/flux2" component={flux2}></Route>
-                                    <Route path="/base_knowledge" component={base_knowledge}></Route>
-                                    <Redirect to="/games"/>
+                                    {
+                                        routes.map((route, key) => {
+
+                                            if (route.exact) {
+
+                                                return <Route key={key} exact path={route.path}
+
+                                                    // route.component     value.component   <User  {...props}  routes={route.routes} />
+
+                                                              render={props => (
+                                                                  // pass the sub-routes down to keep nesting
+                                                                  <route.component {...props} routes={route.routes}/>
+                                                              )}
+
+                                                />
+                                            } else {
+                                                return <Route key={key} path={route.path}
+                                                              render={props => (
+                                                                  // pass the sub-routes down to keep nesting
+                                                                  <route.component {...props} routes={route.routes}/>
+                                                              )}
+                                                />
+
+                                            }
+                                        })
+                                    }
                                 </Switch>
                             </Content>
                         </Layout>
