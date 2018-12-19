@@ -29,7 +29,7 @@ class Nav extends Component {
             pageSize: 5,
             pageSizeOptions: ['5', '10', '15', '20'],
             counter: 0,
-            original_flux:"初始化flux"
+            original_flux:"初始化flux1111"
         };
     };
 
