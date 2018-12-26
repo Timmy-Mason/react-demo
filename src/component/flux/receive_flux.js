@@ -12,10 +12,10 @@ class text_flux extends Component {
     }
     componentDidMount() {
         // 当ListStore里边的数据发生变化的时候,好像监听不到数据
-        ListStore.addChangeListener(this.onChange);
-        if(ListStore.getAll()){
+        // ListStore.addChangeListener(this.onChange);
+        if(ListStore.items){
             this.setState({
-                data:ListStore.getAll()
+                data:ListStore.items
             });
         }
     }

@@ -159,7 +159,7 @@ class Nav extends Component {
         this.getGamesList(1, 10);
 
         // flux 全局数据共享
-        ListStore.addChangeListener(this.onChange);
+        // ListStore.addChangeListener(this.onChange);
         if(ListStore.getAll()){
             this.setState({
                 original_flux:ListStore.getAll()

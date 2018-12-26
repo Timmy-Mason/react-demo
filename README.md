@@ -2485,8 +2485,8 @@ In the future, we might start automatically compiling incompatible third-party m
 
 If you have ideas for more “How To” recipes that should be on this page, [let us know](https://github.com/facebookincubator/create-react-app/issues) or [contribute some!](https://github.com/facebookincubator/create-react-app/edit/master/packages/react-scripts/template/README.md)
 
-####项目注释：
----
+## 项目备注：
+
 一、组件间通讯
 1. game文件夹:
 index.js ---> detailModal.js
@@ -2501,6 +2501,11 @@ child_1.js文件中触发：eventProxy.trigger('msg', '来自child_1的数据');
 child_2.js文件中观察接收：eventProxy.on('msg', (msg) => {this.setState({msg});});   
 
 4. 弹窗的打开以及关闭和第3个相同，通过观察者模式进行触发
+
+---
+## 项目 issue
+1. ref 回调函数详解
+2. 
 
 
 
