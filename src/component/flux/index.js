@@ -12,11 +12,11 @@ class child extends Component {
 
         };
     }
-    // 监听事件（必须是回调）
+    // 监听事件（参数必须是回调）
     componentDidMount() {
         ListStore.addChangeListener1(this._onChange);
     }
-    // 解除事件（必须是回调）
+    // 解除事件（参数必须是回调）
     componentWillUnmount(){
         ListStore.removeChangeListener1(this._onChange);
     }
