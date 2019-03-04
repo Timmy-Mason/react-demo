@@ -80,8 +80,8 @@ class detailModal extends Component {
                 <Modal visible={this.state.visible} title="编辑游戏" onCancel={this.onCancel} onOk={this.onOk}>
                     <p><span style={titleColor}>{this.state.name}</span>:也能通过弹窗的打开做到及时更新</p>
                     <Input onChange={this.handelChange.bind(this)} placeholder="请输入游戏名字" value={this.state.name}/>
-                    <Input placeholder="请输入游戏名字" style={inputColorOne} defaultValue={this.state.brief}/>
-                    <Input placeholder="请输入游戏名字" style={inputColorTwo} defaultValue={this.state.button_content}/>
+                    <Input placeholder="请输入游戏名字" style={inputColorOne} value={this.state.brief} onChange={(value) => this.onChange(value)}/>
+                    <Input placeholder="请输入游戏名字" style={inputColorTwo} value={this.state.button_content} onChange={(value) => this.onChange(value)}/>
                 </Modal>
             </div>
         );

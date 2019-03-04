@@ -246,7 +246,7 @@ class Nav extends Component {
                 <div>
                     <Row gutter={16}>
                         <Col span={6}><Button type="primary">{this.state.original_flux}</Button></Col>
-                        <Col span={6}><Button type="primary" onClick={this.addCopyWriter.bind(this)}>点击修改输入框内容</Button></Col>
+                        <Col span={6}><Button type="primary" onClick={this.addCopyWriter.bind(this)}>点击修改输入框内容111</Button></Col>
                         <Col span={6}>
                             <Input placeholder="输入对应的值" onChange={this.handelChange.bind(this)}
                                    value={this.state.counter}/>
